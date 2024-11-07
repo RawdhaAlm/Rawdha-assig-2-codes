@@ -1,0 +1,72 @@
+from datetime import date
+from typing import List
+
+class Invoice:
+    # Constructor initializing attributes
+    def __init__(self, invoiceID: int, itemizedList: List[str], totalAmount: float, tax: float, dateIssued: date):
+        self._invoiceID = invoiceID
+        self._itemizedList = itemizedList
+        self._totalAmount = totalAmount
+        self._tax = tax
+        self._dateIssued = dateIssued
+    
+    # Getters and setters for each attribute
+    def getInvoiceID(self) -> int:
+        return self._invoiceID
+
+    def setInvoiceID(self, invoiceID: int):
+        self._invoiceID = invoiceID
+
+    def getItemizedList(self) -> List[str]:
+        return self._itemizedList
+
+    def setItemizedList(self, itemizedList: List[str]):
+        self._itemizedList = itemizedList
+
+    def getTotalAmount(self) -> float:
+        return self._totalAmount
+
+    def setTotalAmount(self, totalAmount: float):
+        self._totalAmount = totalAmount
+
+    def getTax(self) -> float:
+        return self._tax
+
+    def setTax(self, tax: float):
+        self._tax = tax
+
+    def getDateIssued(self) -> date:
+        return self._dateIssued
+
+    def setDateIssued(self, dateIssued: date):
+        self._dateIssued = dateIssued
+
+    # Method to calculate the total with tax applied
+    def calculateTotalWithTax(self) -> float:
+        return self._totalAmount + (self._totalAmount * self._tax)
+
+    # Method to generate an itemized list as a string (useful for display)
+    def generateItemizedList(self) -> List[str]:
+        # This would return the current itemized list in string format
+        return [f"Item: {item}" for item in self._itemizedList]
+
+    # Relationships (commented for reference):
+    # 1. Composition with Payment:
+    #    - The Invoice is closely tied to Payment as it depends on the Invoice's details for the transaction.
+    #    - Payment processes the total amount, including tax, based on this Invoice.
+    #
+    # 2. Direct Association with Order:
+    #    - Each Invoice is associated with an Order, detailing purchased items and their costs.
+    #    - An Order creates an Invoice upon completion, which cannot exist independently.
+    #
+    # 3. Direct Association with Discount:
+    #    - Discounts are applied to the Invoice, adjusting the total amount based on eligibility.
+    #    - This allows the Invoice to show any savings due to loyalty or bulk purchase discounts.
+
+# Example usage
+invoice = Invoice(101, ["EBook1", "EBook2"], 100.0, 0.08, date.today())
+print("Invoice ID:", invoice.getInvoiceID())
+print("Total Amount:", invoice.getTotalAmount())
+print("Tax Rate:", invoice.getTax())
+print("Total with Tax:", invoice.calculateTotalWithTax())
+print("Itemized List:", invoice.generateItemizedList())
