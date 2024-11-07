@@ -1,0 +1,143 @@
+# Placeholder for Customer class
+class Customer:
+    def __init__(self, name, email, contactNumber, loyaltyMember, address):
+        self.name = name
+        self.email = email
+        self.contactNumber = contactNumber
+        self.loyaltyMember = loyaltyMember
+        self.address = address
+
+    def getName(self):
+        return self.name
+
+    def getEmail(self):
+        return self.email
+
+# Placeholder for EBook class to be used in ShoppingCart
+class EBook:
+    def __init__(self, title, price):
+        self.title = title
+        self.price = price
+
+    def getTitle(self):
+        return self.title
+
+    def getPrice(self):
+        return self.price
+
+# Placeholder for ShoppingCart class
+class ShoppingCart:
+    def __init__(self, cartID, customerID):
+        self.cartID = cartID
+        self.customerID = customerID
+        self.books = []  # List to store EBook objects
+        self.totalPrice = 0.0
+
+    def addEBook(self, ebook):
+        self.books.append(ebook)
+        self.totalPrice += ebook.getPrice()
+
+    def getEBooks(self):
+        return self.books
+
+    def getTotalPrice(self):
+        return self.totalPrice
+
+# Placeholder for Invoice class
+class Invoice:
+    def __init__(self, invoiceID, itemizedList, totalAmount, tax, dateIssued):
+        self.invoiceID = invoiceID
+        self.itemizedList = itemizedList
+        self.totalAmount = totalAmount
+        self.tax = tax
+        self.dateIssued = dateIssued
+
+    def displayInvoice(self):
+        print(f"Invoice ID: {self.invoiceID}")
+        print("Itemized List:")
+        for item in self.itemizedList:
+            print(f" - {item}")
+        print(f"Total Amount: ${self.totalAmount}")
+        print(f"Tax: ${self.tax}")
+        print(f"Date Issued: {self.dateIssued}")
+
+# Order class
+class Order:
+    def __init__(self, orderID, customer, cart, invoice=None, status="Pending"):
+        # Attributes
+        self.orderID = orderID                 # Order ID
+        self.customer = customer               # Aggregation with Customer
+        self.cart = cart                       # Aggregation with ShoppingCart
+        self.invoice = invoice                 # Composition with Invoice
+        self.status = status                   # Order status ("Pending", "Confirmed", etc.)
+
+    # Getters and Setters for each attribute
+    def getOrderID(self):
+        return self.orderID
+
+    def setOrderID(self, orderID):
+        self.orderID = orderID
+
+    def getCustomer(self):
+        return self.customer
+
+    def setCustomer(self, customer):
+        self.customer = customer
+
+    def getCart(self):
+        return self.cart
+
+    def setCart(self, cart):
+        self.cart = cart
+
+    def getInvoice(self):
+        return self.invoice
+
+    def setInvoice(self, invoice):
+        self.invoice = invoice
+
+    def getStatus(self):
+        return self.status
+
+    def setStatus(self, status):
+        self.status = status
+
+    # Method to generate an invoice for the order
+    def generateInvoice(self):
+        itemized_list = [f"{book.getTitle()} - ${book.getPrice()}" for book in self.cart.getEBooks()]
+        total_amount = self.cart.getTotalPrice()
+        tax = total_amount * 0.08  # Assuming an 8% tax rate
+        dateIssued = "2024-11-08"  # Placeholder for date issued
+        # Create an Invoice object, demonstrating the composition relationship
+        self.invoice = Invoice(invoiceID=1001, itemizedList=itemized_list, totalAmount=total_amount, tax=tax, dateIssued=dateIssued)
+        print(f"Invoice generated for Order {self.orderID}")
+
+    # Method to confirm the order
+    def confirmOrder(self):
+        if self.status == "Pending":
+            self.status = "Confirmed"
+            print(f"Order {self.orderID} confirmed.")
+        else:
+            print(f"Order {self.orderID} is already {self.status}.")
+
+# Test case for the Order class
+if __name__ == "__main__":
+    # Create a Customer
+    customer1 = Customer(name="Rawdha", email="rawdha256@gmail.com", contactNumber="0554788002", loyaltyMember=True, address="24 Alabal St")
+
+    # Create a ShoppingCart and add EBooks
+    cart1 = ShoppingCart(cartID=1, customerID=1)
+    ebook1 = EBook(title="Book One", price=10.0)
+    ebook2 = EBook(title="Book Two", price=15.0)
+    cart1.addEBook(ebook1)
+    cart1.addEBook(ebook2)
+
+    # Create an Order
+    order1 = Order(orderID=1, customer=customer1, cart=cart1)
+
+    # Generate an Invoice for the Order
+    order1.generateInvoice()
+    order1.invoice.displayInvoice()
+
+    # Confirm the Order
+    order1.confirmOrder()
