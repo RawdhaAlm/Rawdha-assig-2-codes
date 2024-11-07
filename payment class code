@@ -1,0 +1,91 @@
+from datetime import date
+
+class Payment:
+    def __init__(self, payment_id: int, amount: float, payment_method: str, date_issued: date, status: str):
+        # Attributes
+        self.payment_id = payment_id
+        self.amount = amount
+        self.payment_method = payment_method
+        self.date_issued = date_issued
+        self.status = status
+        
+        # Relationships
+        self.customer = None  # Association with Customer (Customer who made the payment)
+        # Relationship with VATPayment, DiscountedPayment, and FinalPayment (will inherit from Payment)
+
+    # Getters and Setters
+    def get_payment_id(self) -> int:
+        return self.payment_id
+
+    def set_payment_id(self, payment_id: int):
+        self.payment_id = payment_id
+
+    def get_amount(self) -> float:
+        return self.amount
+
+    def set_amount(self, amount: float):
+        self.amount = amount
+
+    def get_payment_method(self) -> str:
+        return self.payment_method
+
+    def set_payment_method(self, payment_method: str):
+        self.payment_method = payment_method
+
+    def get_date_issued(self) -> date:
+        return self.date_issued
+
+    def set_date_issued(self, date_issued: date):
+        self.date_issued = date_issued
+
+    def get_status(self) -> str:
+        return self.status
+
+    def set_status(self, status: str):
+        self.status = status
+
+    # Additional Methods
+    def process_payment(self):
+        """
+        Processes the payment. For simplicity, assume the payment is successful and update the status.
+        """
+        self.status = "Processed"
+        print(f"Payment ID {self.payment_id} has been processed.")
+
+    def refund(self):
+        """
+        Issues a refund by setting the status to 'Refunded' and resetting the amount to 0.
+        """
+        self.status = "Refunded"
+        self.amount = 0.0
+        print(f"Payment ID {self.payment_id} has been refunded.")
+
+    # Relationship methods
+    def link_customer(self, customer):
+        """
+        Associates this payment with a customer.
+        """
+        self.customer = customer
+        print(f"Payment ID {self.payment_id} is linked to Customer ID {customer.customer_id}.")
+
+# Example Usage
+if __name__ == "__main__":
+    # Creating an instance of Payment for testing
+    payment = Payment(payment_id=101, amount=500.0, payment_method="Credit Card", date_issued=date.today(), status="Pending")
+    
+    # Accessing attributes using getters
+    print(payment.get_payment_id())  # Output: 101
+    print(payment.get_amount())      # Output: 500.0
+
+    # Setting new values using setters
+    payment.set_amount(450.0)
+    print(payment.get_amount())      # Output: 450.0
+
+    # Process the payment
+    payment.process_payment()        # Output: Payment ID 101 has been processed.
+    print(payment.get_status())      # Output: Processed
+
+    # Issue a refund
+    payment.refund()                 # Output: Payment ID 101 has been refunded.
+    print(payment.get_status())      # Output: Refunded
+    print(payment.get_amount())      # Output: 0.0
