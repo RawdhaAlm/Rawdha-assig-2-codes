@@ -1,0 +1,72 @@
+class Discount:
+    def __init__(self, discountID: int, description: str, loyaltyDiscount: float = 10.0, bulkDiscount: float = 20.0):
+        # Attributes
+        self.__discountID = discountID
+        self.__description = description
+        self.__loyaltyDiscount = loyaltyDiscount
+        self.__bulkDiscount = bulkDiscount
+
+    # Getters
+    def getDiscountID(self) -> int:
+        return self.__discountID
+
+    def getDescription(self) -> str:
+        return self.__description
+
+    def getLoyaltyDiscount(self) -> float:
+        return self.__loyaltyDiscount
+
+    def getBulkDiscount(self) -> float:
+        return self.__bulkDiscount
+
+    # Setters
+    def setDiscountID(self, id: int):
+        self.__discountID = id
+
+    def setDescription(self, description: str):
+        self.__description = description
+
+    def setLoyaltyDiscount(self, loyaltyDiscount: float):
+        self.__loyaltyDiscount = loyaltyDiscount
+
+    def setBulkDiscount(self, bulkDiscount: float):
+        self.__bulkDiscount = bulkDiscount
+
+    # Extra method
+    def applyDiscount(self, totalPrice: float, numBooks: int) -> float:
+        """
+        Applies the appropriate discount based on the number of books purchased.
+        - Loyalty discount of 10% if 5 or more books in a single order.
+        - Bulk discount of 20% for larger purchases.
+        Returns the discounted total price.
+        """
+        if numBooks >= 5:
+            # Apply loyalty discount
+            totalPrice -= totalPrice * self.__loyaltyDiscount / 100
+        if totalPrice >= 100:  # Assuming a bulk purchase is defined by a minimum spend (adjust as needed)
+            # Apply bulk discount
+            totalPrice -= totalPrice * self.__bulkDiscount / 100
+        return totalPrice
+
+# Example usage with comments on relationships
+# - Directed Association with Payment: The Discount class interacts with the Payment system to reduce the final payment amount.
+# - Applying discounts based on quantity of books in an order and total purchase amount for a test case example.
+
+# Example test
+if __name__ == "__main__":
+    # Create a discount instance
+    discount = Discount(101, "Loyalty and Bulk Discount")
+
+    # Test applying a loyalty discount on a purchase of 5 books
+    totalPrice = 200.0
+    numBooks = 5
+    discountedPrice = discount.applyDiscount(totalPrice, numBooks)
+    print(f"Original Price: ${totalPrice}")
+    print(f"Discounted Price (5 books, loyalty discount applied): ${discountedPrice}")
+
+    # Test applying a bulk discount on a high-value order
+    totalPrice = 150.0
+    numBooks = 10
+    discountedPrice = discount.applyDiscount(totalPrice, numBooks)
+    print(f"Original Price: ${totalPrice}")
+    print(f"Discounted Price (bulk discount applied): ${discountedPrice}")
