@@ -1,0 +1,183 @@
+class Customer:
+    """
+    Customer class represents a customer in the e-book store.
+    Attributes:
+        name (str): The customer's name.
+        email (str): The customer's email address.
+        contact_number (str): The customer's contact number.
+        loyalty_member (bool): Indicates if the customer is a loyalty program member.
+        address (str): The customer's address.
+    Relationships:
+        - Association with Discount (directed association):
+          Customers can access discounts based on their eligibility.
+    """
+
+    def __init__(self, name, email, contact_number, loyalty_member=False, address=""):
+        """Constructor to initialize Customer attributes."""
+        self._name = name
+        self._email = email
+        self._contact_number = contact_number
+        self._loyalty_member = loyalty_member
+        self._address = address
+
+    # Getters and Setters for each attribute
+    def get_name(self):
+        return self._name
+
+    def set_name(self, name):
+        self._name = name
+
+    def get_email(self):
+        return self._email
+
+    def set_email(self, email):
+        self._email = email
+
+    def get_contact_number(self):
+        return self._contact_number
+
+    def set_contact_number(self, contact):
+        self._contact_number = contact
+
+    def is_loyalty_member(self):
+        return self._loyalty_member
+
+    def set_loyalty_member(self, member):
+        self._loyalty_member = member
+
+    def get_address(self):
+        return self._address
+
+    def set_address(self, address):
+        self._address = address
+
+    def create_account(self):
+        return f"Account created for {self._name}."
+
+    def update_account(self, name=None, email=None, contact=None, address=None):
+        if name:
+            self.set_name(name)
+        if email:
+            self.set_email(email)
+        if contact:
+            self.set_contact_number(contact)
+        if address:
+            self.set_address(address)
+        return f"Account updated for {self._name}."
+
+    def delete_account(self):
+        return f"Account deleted for {self._name}."
+
+    def apply_discount(self, discount):
+        if self._loyalty_member or discount.is_bulk_discount_eligible():
+            return f"Discount applied for {self._name}."
+        return "No discount available for this customer."
+
+
+# Test Case: Change the contact number of an existing customer
+
+# Create a Customer instance
+customer = Customer("Ali", "ali.khan@example.com", "0501234567", True, "123 Main St")
+
+# Display initial contact number
+print("Initial Contact Number:", customer.get_contact_number())  # Expected: 0501234567
+
+# Update the contact number
+customer.set_contact_number("0559876543")
+
+# Verify the updated contact number
+print("Updated Contact Number:", customer.get_contact_number())  # Expected: 0559876543
+
+
+
+
+  class Customer:
+    """
+    Customer class represents a customer in the e-book store.
+    Attributes:
+        name (str): The customer's name.
+        email (str): The customer's email address.
+        contact_number (str): The customer's contact number.
+        loyalty_member (bool): Indicates if the customer is a loyalty program member.
+        address (str): The customer's address.
+    Relationships:
+        - Association with Discount (directed association):
+          Customers can access discounts based on their eligibility.
+    """
+
+    def __init__(self, name, email, contact_number, loyalty_member=False, address=""):
+        """Constructor to initialize Customer attributes."""
+        self._name = name
+        self._email = email
+        self._contact_number = contact_number
+        self._loyalty_member = loyalty_member
+        self._address = address
+
+    # Getters and Setters for each attribute
+    def get_name(self):
+        return self._name
+
+    def set_name(self, name):
+        self._name = name
+
+    def get_email(self):
+        return self._email
+
+    def set_email(self, email):
+        self._email = email
+
+    def get_contact_number(self):
+        return self._contact_number
+
+    def set_contact_number(self, contact):
+        self._contact_number = contact
+
+    def is_loyalty_member(self):
+        return self._loyalty_member
+
+    def set_loyalty_member(self, member):
+        self._loyalty_member = member
+
+    def get_address(self):
+        return self._address
+
+    def set_address(self, address):
+        self._address = address
+
+    def create_account(self):
+        return f"Account created for {self._name}."
+
+    def update_account(self, name=None, email=None, contact=None, address=None):
+        if name:
+            self.set_name(name)
+        if email:
+            self.set_email(email)
+        if contact:
+            self.set_contact_number(contact)
+        if address:
+            self.set_address(address)
+        return f"Account updated for {self._name}."
+
+    def delete_account(self):
+        return f"Account deleted for {self._name}."
+
+    def apply_discount(self, discount):
+        if self._loyalty_member or discount.is_bulk_discount_eligible():
+            return f"Discount applied for {self._name}."
+        return "No discount available for this customer."
+
+
+# Test Case: Update the loyalty membership status of a customer
+
+# Create a Customer instance
+customer = Customer("Fatima", "fatima.ahmed@example.com", "0551112222", False, "456 Park Ave")
+
+# Display initial loyalty membership status
+print("Initial Loyalty Status:", customer.is_loyalty_member())  # Expected: False
+
+# Update the loyalty membership status
+customer.set_loyalty_member(True)
+
+# Verify the updated loyalty membership status
+print("Updated Loyalty Status:", customer.is_loyalty_member())  # Expected: True
+
