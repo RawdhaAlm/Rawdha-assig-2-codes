@@ -1,0 +1,130 @@
+from datetime import date
+from typing import List
+
+class Invoice:
+    # Constructor initializing attributes
+    def __init__(self, invoiceID: int, itemizedList: List[str], totalAmount: float, tax: float, dateIssued: date):
+        self._invoiceID = invoiceID
+        self._itemizedList = itemizedList
+        self._totalAmount = totalAmount
+        self._tax = tax
+        self._dateIssued = dateIssued
+    
+    # Getters and setters for each attribute
+    def getInvoiceID(self) -> int:
+        return self._invoiceID
+
+    def setInvoiceID(self, invoiceID: int):
+        self._invoiceID = invoiceID
+
+    def getItemizedList(self) -> List[str]:
+        return self._itemizedList
+
+    def setItemizedList(self, itemizedList: List[str]):
+        self._itemizedList = itemizedList
+
+    def getTotalAmount(self) -> float:
+        return self._totalAmount
+
+    def setTotalAmount(self, totalAmount: float):
+        self._totalAmount = totalAmount
+
+    def getTax(self) -> float:
+        return self._tax
+
+    def setTax(self, tax: float):
+        self._tax = tax
+
+    def getDateIssued(self) -> date:
+        return self._dateIssued
+
+    def setDateIssued(self, dateIssued: date):
+        self._dateIssued = dateIssued
+
+    # Method to calculate the total with tax applied
+    def calculateTotalWithTax(self) -> float:
+        return self._totalAmount + (self._totalAmount * self._tax)
+
+    # Method to generate an itemized list as a string (useful for display)
+    def generateItemizedList(self) -> List[str]:
+        # This would return the current itemized list in string format
+        return [f"Item: {item}" for item in self._itemizedList]
+
+# Test Case 1: Updating the `totalAmount` and Recalculating Taxed Total
+if __name__ == "__main__":
+    # Create an invoice instance
+    invoice = Invoice(201, ["EBook1", "EBook2"], 120.0, 0.08, date.today())
+
+    # Display initial total with tax
+    print("Initial Total with Tax:", invoice.calculateTotalWithTax())
+
+    # Update the total amount and recalculate
+    invoice.setTotalAmount(150.0)
+    print("Updated Total with Tax:", invoice.calculateTotalWithTax())
+
+
+
+
+
+from datetime import date
+from typing import List
+
+class Invoice:
+    # Constructor initializing attributes
+    def __init__(self, invoiceID: int, itemizedList: List[str], totalAmount: float, tax: float, dateIssued: date):
+        self._invoiceID = invoiceID
+        self._itemizedList = itemizedList
+        self._totalAmount = totalAmount
+        self._tax = tax
+        self._dateIssued = dateIssued
+    
+    # Getters and setters for each attribute
+    def getInvoiceID(self) -> int:
+        return self._invoiceID
+
+    def setInvoiceID(self, invoiceID: int):
+        self._invoiceID = invoiceID
+
+    def getItemizedList(self) -> List[str]:
+        return self._itemizedList
+
+    def setItemizedList(self, itemizedList: List[str]):
+        self._itemizedList = itemizedList
+
+    def getTotalAmount(self) -> float:
+        return self._totalAmount
+
+    def setTotalAmount(self, totalAmount: float):
+        self._totalAmount = totalAmount
+
+    def getTax(self) -> float:
+        return self._tax
+
+    def setTax(self, tax: float):
+        self._tax = tax
+
+    def getDateIssued(self) -> date:
+        return self._dateIssued
+
+    def setDateIssued(self, dateIssued: date):
+        self._dateIssued = dateIssued
+
+    # Method to calculate the total with tax applied
+    def calculateTotalWithTax(self) -> float:
+        return self._totalAmount + (self._totalAmount * self._tax)
+
+    # Method to generate an itemized list as a string (useful for display)
+    def generateItemizedList(self) -> List[str]:
+        # This would return the current itemized list in string format
+        return [f"Item: {item}" for item in self._itemizedList]
+
+# Test Case 2: Generating and Displaying an Itemized List with Multiple Items
+if __name__ == "__main__":
+    # Create an invoice instance with multiple items
+    invoice = Invoice(202, ["EBook1 - Python Basics", "EBook2 - Data Science", "EBook3 - Machine Learning"], 200.0, 0.08, date.today())
+
+    # Display the itemized list
+    itemized_list = invoice.generateItemizedList()
+    print("Generated Itemized List:")
+    for item in itemized_list:
+        print(item)
