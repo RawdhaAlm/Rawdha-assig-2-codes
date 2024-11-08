@@ -1,0 +1,132 @@
+class Discount:
+    def __init__(self, discountID: int, description: str, loyaltyDiscount: float = 10.0, bulkDiscount: float = 20.0):
+        # Attributes
+        self.__discountID = discountID
+        self.__description = description
+        self.__loyaltyDiscount = loyaltyDiscount
+        self.__bulkDiscount = bulkDiscount
+
+    # Getters
+    def getDiscountID(self) -> int:
+        return self.__discountID
+
+    def getDescription(self) -> str:
+        return self.__description
+
+    def getLoyaltyDiscount(self) -> float:
+        return self.__loyaltyDiscount
+
+    def getBulkDiscount(self) -> float:
+        return self.__bulkDiscount
+
+    # Setters
+    def setDiscountID(self, id: int):
+        self.__discountID = id
+
+    def setDescription(self, description: str):
+        self.__description = description
+
+    def setLoyaltyDiscount(self, loyaltyDiscount: float):
+        self.__loyaltyDiscount = loyaltyDiscount
+
+    def setBulkDiscount(self, bulkDiscount: float):
+        self.__bulkDiscount = bulkDiscount
+
+    # Extra method
+    def applyDiscount(self, totalPrice: float, numBooks: int) -> float:
+        """
+        Applies the appropriate discount based on the number of books purchased.
+        - Loyalty discount of 10% if 5 or more books in a single order.
+        - Bulk discount of 20% for larger purchases.
+        Returns the discounted total price.
+        """
+        if numBooks >= 5:
+            # Apply loyalty discount
+            totalPrice -= totalPrice * self.__loyaltyDiscount / 100
+        if totalPrice >= 100:  # Assuming a bulk purchase is defined by a minimum spend (adjust as needed)
+            # Apply bulk discount
+            totalPrice -= totalPrice * self.__bulkDiscount / 100
+        return totalPrice
+
+
+# Test Case 1: No Discounts Applied
+if __name__ == "__main__":
+    # Create a Discount instance
+    discount = Discount(201, "No Discount Applied")
+
+    # Set conditions where no discounts apply
+    totalPrice = 80.0  # Total price of books
+    numBooks = 3       # Less than 5 books, and customer is not a loyalty member
+
+    # Apply discount and check the output
+    discountedPrice = discount.applyDiscount(totalPrice, numBooks)
+    print(f"Original Price: ${totalPrice}")
+    print(f"Discounted Price (no discounts applied): ${discountedPrice}")
+
+
+
+
+          class Discount:
+    def __init__(self, discountID: int, description: str, loyaltyDiscount: float = 10.0, bulkDiscount: float = 20.0):
+        # Attributes
+        self.__discountID = discountID
+        self.__description = description
+        self.__loyaltyDiscount = loyaltyDiscount
+        self.__bulkDiscount = bulkDiscount
+
+    # Getters
+    def getDiscountID(self) -> int:
+        return self.__discountID
+
+    def getDescription(self) -> str:
+        return self.__description
+
+    def getLoyaltyDiscount(self) -> float:
+        return self.__loyaltyDiscount
+
+    def getBulkDiscount(self) -> float:
+        return self.__bulkDiscount
+
+    # Setters
+    def setDiscountID(self, id: int):
+        self.__discountID = id
+
+    def setDescription(self, description: str):
+        self.__description = description
+
+    def setLoyaltyDiscount(self, loyaltyDiscount: float):
+        self.__loyaltyDiscount = loyaltyDiscount
+
+    def setBulkDiscount(self, bulkDiscount: float):
+        self.__bulkDiscount = bulkDiscount
+
+    # Extra method
+    def applyDiscount(self, totalPrice: float, numBooks: int) -> float:
+        """
+        Applies the appropriate discount based on the number of books purchased.
+        - Loyalty discount of 10% if 5 or more books in a single order.
+        - Bulk discount of 20% for larger purchases.
+        Returns the discounted total price.
+        """
+        if numBooks >= 5:
+            # Apply loyalty discount
+            totalPrice -= totalPrice * self.__loyaltyDiscount / 100
+        if totalPrice >= 100:  # Assuming a bulk purchase is defined by a minimum spend (adjust as needed)
+            # Apply bulk discount
+            totalPrice -= totalPrice * self.__bulkDiscount / 100
+        return totalPrice
+
+
+# Test Case 2: Only Loyalty Discount Applied
+if __name__ == "__main__":
+    # Create a Discount instance
+    discount = Discount(202, "Loyalty Discount Only")
+
+    # Set conditions for applying only the loyalty discount
+    totalPrice = 100.0  # Total price of books
+    numBooks = 3        # Less than 5 books, but customer is a loyalty member
+
+    # Apply discount assuming the customer is eligible for loyalty discount
+    loyalty_discounted_price = totalPrice - (totalPrice * discount.getLoyaltyDiscount() / 100)
+    print(f"Original Price: ${totalPrice}")
+    print(f"Discounted Price (loyalty discount applied): ${loyalty_discounted_price}")
