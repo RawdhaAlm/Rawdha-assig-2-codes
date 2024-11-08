@@ -1,0 +1,173 @@
+from typing import List
+
+class EBook:
+    """A simplified EBook class placeholder for the relationship."""
+    def __init__(self, title, price):
+        self.title = title
+        self.price = price
+
+    def get_price(self):
+        return self.price
+
+class ShoppingCart:
+    """
+    ShoppingCart class represents a shopping cart in the e-book store.
+    Attributes:
+        cart_id (int): Unique identifier for the shopping cart.
+        books (List[EBook]): List of e-books in the cart.
+        total_price (float): The total price of all e-books in the cart.
+        customer_id (int): ID of the customer who owns the cart.
+        item_count (int): The total number of items (e-books) in the cart.
+    """
+
+    def __init__(self, cart_id: int, customer_id: int):
+        """Constructor to initialize ShoppingCart attributes."""
+        self._cart_id = cart_id
+        self._books = []
+        self._total_price = 0.0
+        self._customer_id = customer_id
+        self._item_count = 0
+
+    # Getters and Setters for each attribute
+    def get_cart_id(self):
+        return self._cart_id
+
+    def get_books(self):
+        return self._books
+
+    def get_total_price(self):
+        return self._total_price
+
+    def get_customer_id(self):
+        return self._customer_id
+
+    def get_item_count(self):
+        return self._item_count
+
+    # Extra methods based on the UML diagram
+    def add_ebook(self, ebook: EBook):
+        self._books.append(ebook)
+        self._item_count += 1
+        self._total_price += ebook.get_price()
+        print(f"Added {ebook.title} to the cart. Total items: {self._item_count}")
+
+    def remove_ebook(self, ebook: EBook):
+        if ebook in self._books:
+            self._books.remove(ebook)
+            self._item_count -= 1
+            self._total_price -= ebook.get_price()
+            print(f"Removed {ebook.title} from the cart. Total items: {self._item_count}")
+        else:
+            print(f"{ebook.title} not found in the cart.")
+
+    def calculate_total(self):
+        self._total_price = sum(ebook.get_price() for ebook in self._books)
+        return self._total_price
+
+# Example usage with Test Case 1
+if __name__ == "__main__":
+    # Create EBook instances
+    ebook1 = EBook("Advanced Python", 25.99)
+    ebook2 = EBook("AI for Beginners", 30.99)
+    ebook3 = EBook("Deep Learning Fundamentals", 45.99)
+
+    # Create a ShoppingCart instance
+    cart = ShoppingCart(cart_id=102, customer_id=2)
+
+    # Add multiple e-books to the cart
+    cart.add_ebook(ebook1)
+    cart.add_ebook(ebook2)
+    cart.add_ebook(ebook3)
+
+    # Verify the item count and total price after adding multiple e-books
+    print("Item Count after adding e-books:", cart.get_item_count())  # Expected: 3
+    print("Total Price after adding e-books:", cart.get_total_price())  # Expected: 102.97
+
+
+
+
+
+from typing import List
+
+class EBook:
+    """A simplified EBook class placeholder for the relationship."""
+    def __init__(self, title, price):
+        self.title = title
+        self.price = price
+
+    def get_price(self):
+        return self.price
+
+class ShoppingCart:
+    """
+    ShoppingCart class represents a shopping cart in the e-book store.
+    Attributes:
+        cart_id (int): Unique identifier for the shopping cart.
+        books (List[EBook]): List of e-books in the cart.
+        total_price (float): The total price of all e-books in the cart.
+        customer_id (int): ID of the customer who owns the cart.
+        item_count (int): The total number of items (e-books) in the cart.
+    """
+
+    def __init__(self, cart_id: int, customer_id: int):
+        """Constructor to initialize ShoppingCart attributes."""
+        self._cart_id = cart_id
+        self._books = []
+        self._total_price = 0.0
+        self._customer_id = customer_id
+        self._item_count = 0
+
+    # Getters and Setters for each attribute
+    def get_cart_id(self):
+        return self._cart_id
+
+    def get_books(self):
+        return self._books
+
+    def get_total_price(self):
+        return self._total_price
+
+    def get_customer_id(self):
+        return self._customer_id
+
+    def get_item_count(self):
+        return self._item_count
+
+    # Extra methods based on the UML diagram
+    def add_ebook(self, ebook: EBook):
+        self._books.append(ebook)
+        self._item_count += 1
+        self._total_price += ebook.get_price()
+        print(f"Added {ebook.title} to the cart. Total items: {self._item_count}")
+
+    def remove_ebook(self, ebook: EBook):
+        if ebook in self._books:
+            self._books.remove(ebook)
+            self._item_count -= 1
+            self._total_price -= ebook.get_price()
+            print(f"Removed {ebook.title} from the cart. Total items: {self._item_count}")
+        else:
+            print(f"{ebook.title} not found in the cart.")
+
+    def calculate_total(self):
+        self._total_price = sum(ebook.get_price() for ebook in self._books)
+        return self._total_price
+
+# Example usage with Test Case 2
+if __name__ == "__main__":
+    # Create EBook instances
+    ebook1 = EBook("Data Structures in Python", 20.99)
+    ebook2 = EBook("Algorithms Unlocked", 35.99)
+    ebook3 = EBook("Neural Networks Explained", 40.99)
+
+    # Create a ShoppingCart instance and add some e-books
+    cart = ShoppingCart(cart_id=103, customer_id=3)
+    cart.add_ebook(ebook1)
+    cart.add_ebook(ebook2)
+
+    # Attempt to remove an e-book that is not in the cart
+    cart.remove_ebook(ebook3)  # Expected output: "Neural Networks Explained not found in the cart."
+
+    # Verify the item count and total price remain unchanged
+    print("Item Count after attempting to remove a non-existent book:", cart.get_item_count())  # Expected: 2
+    print("Total Price after attempting to remove a non-existent book:", cart.get_total_price())  # Expected: 56.98
